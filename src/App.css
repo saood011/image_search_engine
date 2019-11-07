@@ -21,10 +21,11 @@
   color: #09d3ac;
 }
 .card {
-  width: 10rem;
+  width: 15rem;
 }
 .images {
-  height: 150px;
+  height: 200px;
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
 }
 .list {
   min-height: 70vh;
@@ -33,9 +34,10 @@
 .cover {
   height: 290px;
   width: 100%;
-  background-image: url("./cover.jpeg");
+  background-image: url("./cover2.jpeg");
   background-size: cover;
   background-position-y: 340px;
+  border: 5px solid rgb(65, 59, 59);
 }
 .card:hover {
   background-color: blue;
@@ -49,7 +51,7 @@ footer {
   text-align: center;
   color: white;
   background-color: #2d3436;
-  background-image: linear-gradient(360deg, #2d3436 0%, #d3d3d3 94%);
+  background-image: linear-gradient(360deg, #2d3436 0%, #d3d3d3 100%);
 }
 .lds-hourglass {
   display: inline-block;
@@ -81,4 +83,17 @@ footer {
   100% {
     transform: rotate(1800deg);
   }
+}
+.title {
+  color: white;
+  background-color: #d1d5db4f;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+}
+.page {
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+}
+.input {
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
 }

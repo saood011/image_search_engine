@@ -5,7 +5,7 @@ import "./App.css";
 function App() {
   const [term, setTerm] = useState("car");
   const [pictures, setPictures] = useState([]);
-  const [pageNum, setPageNum] = useState(2);
+  const [pageNum, setPageNum] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
 
   const changeHandler = e => {
@@ -18,6 +18,7 @@ function App() {
   const sendRequest = e => {
     e.preventDefault();
     setIsLoading(true);
+    setPageNum(1);
 
     axios
       .get("https://api.unsplash.com/search/photos", {
@@ -73,29 +74,30 @@ function App() {
     <div className="container">
       {pictures.length < 1 ? (
         <div>
-          <div className="cover"></div>
+          <div className="cover d-flex justify-content-center align-items-center">
+            <p className="title h1">IMAGE SEARCH</p>
+          </div>
           <div className="d-flex justify-content-center align-items-center search">
-            <form
-              onSubmit={sendRequest}
-              className="text-center d-flex mt-2 shadow "
-            >
+            <form onSubmit={sendRequest} className="text-center d-flex mt-2 ">
               <input
                 type="text"
                 onChange={changeHandler}
-                className="form-control"
+                className="form-control input"
                 placeholder=" Enter the name of the picture..."
               />
               <input
                 type="submit"
                 value="Search"
-                className="btn btn-primary ml-1"
+                className="btn btn-primary ml-1 input"
               />
             </form>
           </div>
         </div>
       ) : isLoading ? (
         <div>
-          <div className="cover"></div>
+          <div className="cover d-flex justify-content-center align-items-center">
+            <p className="title h1">Searching...</p>
+          </div>
           <form
             onSubmit={sendRequest}
             className="text-center d-flex mt-2 shadow"
@@ -112,13 +114,15 @@ function App() {
               className="btn btn-primary ml-1"
             />
           </form>
-          <div class="text-center">
-            <div class="lds-hourglass"></div>
+          <div className="text-center">
+            <div className="lds-hourglass"></div>
           </div>
         </div>
       ) : (
         <div>
-          <div className="cover"></div>
+          <div className="cover d-flex justify-content-center align-items-center">
+            <p className="title h1">You searced for "{term}"</p>
+          </div>
           <form
             onSubmit={sendRequest}
             className="text-center d-flex mt-2 shadow"
@@ -135,7 +139,6 @@ function App() {
               className="btn btn-primary ml-1"
             />
           </form>
-
           <div className="d-flex flex-wrap justify-content-center mt-2 list align-items-center">
             {pictures.length
               ? pictures.map(pic => (
@@ -152,10 +155,9 @@ function App() {
                 ))
               : null}
           </div>
-
           <div className="d-flex justify-content-between">
             <button
-              className="btn btn-danger"
+              className="btn btn-danger shadow"
               onClick={() => {
                 if (pageNum > 1) {
                   setPageNum(pageNum - 1);
@@ -167,8 +169,11 @@ function App() {
             >
               previous
             </button>
+            <p className="bg-secondary rounded-pill p-1 text-white  page">
+              {pageNum}
+            </p>
             <button
-              className="btn btn-danger"
+              className="btn btn-danger shadow"
               onClick={() => {
                 setPageNum(pageNum + 1);
                 console.log(pageNum);
@@ -180,7 +185,7 @@ function App() {
           </div>
         </div>
       )}
-      <footer> &copy; 2019 Designed by Saood using React</footer>
+      <footer> &copy; 2019 Designed and Programmed by Saood using React</footer>
     </div>
   );
 }
