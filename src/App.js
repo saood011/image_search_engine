@@ -35,8 +35,7 @@ function App() {
       });
   };
 
-  const nextPage = e => {
-    e.preventDefault();
+  const changePage = e => {
     axios
       .get("https://api.unsplash.com/search/photos", {
         params: {
@@ -92,21 +91,21 @@ function App() {
       <div className="d-flex justify-content-between">
         <button
           className="btn btn-danger"
-          onMouseOver={() => {
+          onClick={() => {
             setPageNum(pageNum - 1);
             console.log(pageNum);
+            changePage();
           }}
-          onClick={nextPage}
         >
           previous
         </button>
         <button
           className="btn btn-danger"
-          onMouseOver={() => {
+          onClick={() => {
             setPageNum(pageNum + 1);
             console.log(pageNum);
+            changePage();
           }}
-          onClick={nextPage}
         >
           next
         </button>
