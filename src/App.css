@@ -32,3 +32,10 @@ img {
 .card-body {
   height: 100px;
 }
+.cover {
+  height: 290px;
+  width: 100%;
+  background-image: url("./cover.jpeg");
+  background-size: cover;
+  background-position-y: 350px;
+}

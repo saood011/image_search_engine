@@ -18,7 +18,7 @@ function App() {
       .get("https://api.unsplash.com/search/photos", {
         params: {
           query: term,
-          page: 3,
+          page: 1,
           per_page: 15
         },
         headers: {
@@ -59,8 +59,9 @@ function App() {
   };
 
   return (
-    <div className="container m-5 ">
-      <form onSubmit={sendRequest} className="text-center d-flex">
+    <div className="container">
+      <div className="cover"></div>
+      <form onSubmit={sendRequest} className="text-center d-flex mt-2 shadow">
         <input
           type="text"
           onChange={changeHandler}
@@ -70,20 +71,22 @@ function App() {
         <input type="submit" value="Search" className="btn btn-primary ml-1" />
       </form>
 
-      <div className="d-flex flex-wrap justify-content-center mt-2 list align-items-center ">
+      <div className="d-flex flex-wrap justify-content-center mt-2 list align-items-center">
         {pictures.length ? (
           pictures.map(pic => (
-            <div className="card" key={pic.id}>
-              <img src={pic.urls.thumb} className="card-img-top" alt={pic.id} />
-              <div className="card-body">
-                <p className="card-text">{pic.alt_description}</p>
-              </div>
+            <div className="card m-2 p-2 shadow" key={pic.id}>
+              <a href={pic.urls.full} target="blank">
+                {" "}
+                <img
+                  src={pic.urls.thumb}
+                  className="card-img-top"
+                  alt={pic.id}
+                />
+              </a>
             </div>
           ))
         ) : (
-          <h1 className="text-danger shadow p-4 rounded">
-            Search for something beautiful...
-          </h1>
+          <h3 className="text-dark">Search result here...</h3>
         )}
       </div>
       <div className="d-flex justify-content-between">
