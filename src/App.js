@@ -5,12 +5,14 @@ import "./App.css";
 function App() {
   const [term, setTerm] = useState("car");
   const [pictures, setPictures] = useState([]);
-  const [pageNum, setPageNum] = useState(1);
+  const [pageNum, setPageNum] = useState(2);
 
   const changeHandler = e => {
     setTerm(e.target.value);
     console.log(term);
   };
+
+  //// sending request on search buton click
 
   const sendRequest = e => {
     e.preventDefault();
@@ -35,6 +37,8 @@ function App() {
       });
   };
 
+  /// sending request on next/previous button click
+
   const changePage = e => {
     axios
       .get("https://api.unsplash.com/search/photos", {
@@ -57,59 +61,93 @@ function App() {
       });
   };
 
+  //// render section
+
   return (
     <div className="container">
-      <div className="cover"></div>
-      <form onSubmit={sendRequest} className="text-center d-flex mt-2 shadow">
-        <input
-          type="text"
-          onChange={changeHandler}
-          className="form-control"
-          placeholder=" Enter the name of the picture..."
-        />
-        <input type="submit" value="Search" className="btn btn-primary ml-1" />
-      </form>
-
-      <div className="d-flex flex-wrap justify-content-center mt-2 list align-items-center">
-        {pictures.length ? (
-          pictures.map(pic => (
-            <div className="card m-2 p-2 shadow" key={pic.id}>
-              <a href={pic.urls.full} target="blank">
-                {" "}
-                <img
-                  src={pic.urls.thumb}
-                  className="card-img-top"
-                  alt={pic.id}
-                />
-              </a>
-            </div>
-          ))
-        ) : (
-          <h3 className="text-dark">Search result here...</h3>
-        )}
-      </div>
-      <div className="d-flex justify-content-between">
-        <button
-          className="btn btn-danger"
-          onClick={() => {
-            setPageNum(pageNum - 1);
-            console.log(pageNum);
-            changePage();
-          }}
-        >
-          previous
-        </button>
-        <button
-          className="btn btn-danger"
-          onClick={() => {
-            setPageNum(pageNum + 1);
-            console.log(pageNum);
-            changePage();
-          }}
-        >
-          next
-        </button>
-      </div>
+      {pictures.length < 1 ? (
+        <div>
+          <div className="cover"></div>
+          <div className="d-flex justify-content-center align-items-center search">
+            <form
+              onSubmit={sendRequest}
+              className="text-center d-flex mt-2 shadow "
+            >
+              <input
+                type="text"
+                onChange={changeHandler}
+                className="form-control"
+                placeholder=" Enter the name of the picture..."
+              />
+              <input
+                type="submit"
+                value="Search"
+                className="btn btn-primary ml-1"
+              />
+            </form>
+          </div>
+        </div>
+      ) : (
+        <div>
+          <div className="cover"></div>
+          <form
+            onSubmit={sendRequest}
+            className="text-center d-flex mt-2 shadow"
+          >
+            <input
+              type="text"
+              onChange={changeHandler}
+              className="form-control"
+              placeholder=" Enter the name of the picture..."
+            />
+            <input
+              type="submit"
+              value="Search"
+              className="btn btn-primary ml-1"
+            />
+          </form>
+          <div className="d-flex flex-wrap justify-content-center mt-2 list align-items-center">
+            {pictures.length ? (
+              pictures.map(pic => (
+                <div className="card m-2 p-1 shadow" key={pic.id}>
+                  <a href={pic.urls.full} target="blank">
+                    {" "}
+                    <img
+                      src={pic.urls.thumb}
+                      className="card-img-top images"
+                      alt={pic.id}
+                    />
+                  </a>
+                </div>
+              ))
+            ) : (
+              <h3 className="text-dark">Search result here...</h3>
+            )}
+          </div>
+          <div className="d-flex justify-content-between">
+            <button
+              className="btn btn-danger"
+              onClick={() => {
+                setPageNum(pageNum - 1);
+                console.log(pageNum);
+                changePage();
+              }}
+            >
+              previous
+            </button>
+            <button
+              className="btn btn-danger"
+              onClick={() => {
+                setPageNum(pageNum + 1);
+                console.log(pageNum);
+                changePage();
+              }}
+            >
+              next
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
