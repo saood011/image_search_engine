@@ -71,11 +71,11 @@ function App() {
   //// render section
 
   return (
-    <div className="container">
+    <div className="fluid-container">
       {pictures.length < 1 ? (
         <div>
           <div className="cover d-flex justify-content-center align-items-center">
-            <p className="title h1">IMAGE SEARCH</p>
+            <p className="title h4"> SA7 IMAGE SEARCH</p>
           </div>
           <div className="d-flex justify-content-center align-items-center search">
             <form onSubmit={sendRequest} className="text-center d-flex mt-2 ">
@@ -96,7 +96,7 @@ function App() {
       ) : isLoading ? (
         <div>
           <div className="cover d-flex justify-content-center align-items-center">
-            <p className="title h1">Searching...</p>
+            <p className="title h4">Searching...</p>
           </div>
           <form
             onSubmit={sendRequest}
@@ -121,7 +121,7 @@ function App() {
       ) : (
         <div>
           <div className="cover d-flex justify-content-center align-items-center">
-            <p className="title h1">You searced for "{term}"</p>
+            <p className="title h5">You searced for "{term}"</p>
           </div>
           <form
             onSubmit={sendRequest}
@@ -169,7 +169,7 @@ function App() {
             >
               previous
             </button>
-            <p className="bg-secondary rounded-pill p-1 text-white  page">
+            <p className="bg-secondary rounded-pill p-2 text-white  page">
               {pageNum}
             </p>
             <button
