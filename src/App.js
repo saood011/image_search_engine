@@ -7,6 +7,13 @@ function App() {
   const [pictures, setPictures] = useState([]);
   const [pageNum, setPageNum] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+  const [pagination, setPagination] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+
+  const showPagination = e => {
+    console.log(e.target.id);
+    if (e.target.id === "next") setPagination(pagination.map((v, i) => v + 10));
+    else setPagination(pagination.map((v, i) => v - 10));
+  };
 
   const changeHandler = e => {
     setTerm(e.target.value);
@@ -43,14 +50,14 @@ function App() {
 
   /// sending request on next/previous button click
 
-  const changePage = e => {
+  const changePage = (e, paginate) => {
     setIsLoading(true);
-
+    setPageNum(paginate);
     axios
       .get("https://api.unsplash.com/search/photos", {
         params: {
           query: term,
-          page: pageNum,
+          page: paginate,
           per_page: 24
         },
         headers: {
@@ -83,7 +90,7 @@ function App() {
                 type="text"
                 onChange={changeHandler}
                 className="form-control input"
-                placeholder=" Enter the name of the picture..."
+                placeholder=" Search here..."
               />
               <input
                 type="submit"
@@ -106,7 +113,7 @@ function App() {
               type="text"
               onChange={changeHandler}
               className="form-control"
-              placeholder=" Enter the name of the picture..."
+              placeholder=" Search here..."
             />
             <input
               type="submit"
@@ -120,9 +127,9 @@ function App() {
         </div>
       ) : (
         <div>
-          <div className="cover d-flex justify-content-center align-items-center">
-            <p className="title h5">You searced for "{term}"</p>
-          </div>
+          <p className="title h5 text-dark text-center">
+            Showing result for "{term}"
+          </p>
           <form
             onSubmit={sendRequest}
             className="text-center d-flex mt-2 shadow"
@@ -131,7 +138,7 @@ function App() {
               type="text"
               onChange={changeHandler}
               className="form-control"
-              placeholder=" Enter the name of the picture..."
+              placeholder=" Search here..."
             />
             <input
               type="submit"
@@ -139,48 +146,71 @@ function App() {
               className="btn btn-primary ml-1"
             />
           </form>
-          <div className="d-flex flex-wrap justify-content-center mt-2 list align-items-center">
+          <div className="d-flex flex-wrap justify-content-center mt-2 mb-2 list align-items-center">
             {pictures.length
               ? pictures.map(pic => (
-                  <div className="card m-2 p-1 shadow" key={pic.id}>
-                    <a href={pic.urls.full} target="blank">
-                      {" "}
+                  <div class="images" key={pic.id}>
+                    <div className="hovereffect">
                       <img
+                        class="img-responsive"
                         src={pic.urls.thumb}
-                        className="card-img-top images"
                         alt={pic.id}
                       />
-                    </a>
+                      <div class="overlay">
+                        <h2>{pic.alt_description}</h2>
+                        <a class="info" href={pic.urls.full} target="blank">
+                          link here
+                        </a>
+                      </div>
+                    </div>
                   </div>
                 ))
               : null}
           </div>
-          <div className="d-flex justify-content-between">
+          <div className="d-flex justify-content-around">
             <button
               className="btn btn-danger shadow"
-              onClick={() => {
+              id="previous"
+              onClick={e => {
                 if (pageNum > 1) {
                   setPageNum(pageNum - 1);
                 }
-
                 console.log(pageNum);
                 changePage();
+                showPagination(e);
               }}
             >
-              previous
+              &laquo; previous
             </button>
-            <p className="bg-secondary rounded-pill p-2 text-white  page">
-              {pageNum}
-            </p>
+            <div>
+              <div className="pagination">
+                {pagination.map(v => (
+                  <button
+                    id={v}
+                    key={v}
+                    onClick={e => {
+                      changePage(e, Number(e.target.id));
+                    }}
+                    className={`rounded-circle mr-2 page ${
+                      pageNum === v ? "Active" : ""
+                    }`}
+                  >
+                    {v}
+                  </button>
+                ))}
+              </div>
+            </div>
             <button
               className="btn btn-danger shadow"
-              onClick={() => {
+              id="next"
+              onClick={e => {
                 setPageNum(pageNum + 1);
                 console.log(pageNum);
                 changePage();
+                showPagination(e);
               }}
             >
-              next
+              next&raquo;
             </button>
           </div>
         </div>
