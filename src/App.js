@@ -149,16 +149,16 @@ function App() {
           <div className="d-flex flex-wrap justify-content-center mt-2 mb-2 list align-items-center">
             {pictures.length
               ? pictures.map(pic => (
-                  <div class="images" key={pic.id}>
+                  <div className="images" key={pic.id}>
                     <div className="hovereffect">
                       <img
-                        class="img-responsive"
+                        className="img-responsive"
                         src={pic.urls.thumb}
                         alt={pic.id}
                       />
-                      <div class="overlay">
+                      <div className="overlay">
                         <h2>{pic.alt_description}</h2>
-                        <a class="info" href={pic.urls.full} target="blank">
+                        <a className="info" href={pic.urls.full} target="blank">
                           link here
                         </a>
                       </div>
@@ -182,8 +182,8 @@ function App() {
             >
               &laquo; previous
             </button>
-            <div>
-              <div className="pagination">
+            <div className="d-flex flex-wrap justify-content-center mb-1">
+              <div className="pagination d-flex flex-wrap justify-content-center">
                 {pagination.map(v => (
                   <button
                     id={v}
