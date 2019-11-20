@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Pagination } from "semantic-ui-react";
+
 import "./App.css";
 
 function App() {
@@ -7,13 +9,14 @@ function App() {
   const [pictures, setPictures] = useState([]);
   const [pageNum, setPageNum] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
-  const [pagination, setPagination] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
-
-  const showPagination = e => {
+  const [TotalPages, setTotalPages] = useState(5);
+  /*   const [pagination, setPagination] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+   */
+  /* const showPagination = e => {
     console.log(e.target.id);
     if (e.target.id === "next") setPagination(pagination.map((v, i) => v + 10));
     else setPagination(pagination.map((v, i) => v - 10));
-  };
+  }; */
 
   const changeHandler = e => {
     setTerm(e.target.value);
@@ -40,7 +43,8 @@ function App() {
       })
       .then(response => {
         setPictures([...response.data.results]);
-        console.log(response.data);
+        console.log(response.data.total_pages);
+        setTotalPages(response.data.total_pages);
         setIsLoading(false);
       })
       .catch(error => {
@@ -67,7 +71,7 @@ function App() {
       })
       .then(response => {
         setPictures([...response.data.results]);
-        console.log(response.data.results);
+        console.log(response.data.total);
         setIsLoading(false);
       })
       .catch(error => {
@@ -168,7 +172,15 @@ function App() {
               : null}
           </div>
           <div className="d-flex justify-content-around">
-            <button
+            <Pagination
+              defaultActivePage={pageNum}
+              onPageChange={(e, pageInfo) => {
+                setPageNum(pageInfo.activePage);
+                changePage(e, Number(pageInfo.activePage));
+              }}
+              totalPages={TotalPages}
+            />
+            {/*    <button
               className="btn btn-danger shadow"
               id="previous"
               onClick={e => {
@@ -211,11 +223,14 @@ function App() {
               }}
             >
               next&raquo;
-            </button>
+            </button> */}
           </div>
         </div>
       )}
-      <footer> &copy; 2019 Designed and Programmed by Saood using React</footer>
+      <footer className="mt-2">
+        {" "}
+        &copy; 2019 Designed and Programmed by Saood using React
+      </footer>
     </div>
   );
 }
