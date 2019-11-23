@@ -84,25 +84,24 @@ function App() {
   return (
     <div className="fluid-container">
       {pictures.length < 1 ? (
-        <div>
-          <div className="cover d-flex justify-content-center align-items-center">
-            <p className="title h4"> SA7 IMAGE SEARCH</p>
-          </div>
-          <div className="d-flex justify-content-center align-items-center search">
-            <form onSubmit={sendRequest} className="text-center d-flex mt-2 ">
-              <input
-                type="text"
-                onChange={changeHandler}
-                className="form-control input"
-                placeholder=" Search here..."
-              />
-              <input
-                type="submit"
-                value="Search"
-                className="btn btn-primary ml-1 input"
-              />
-            </form>
-          </div>
+        <div className="cover d-flex justify-content-center align-items-center flex-column">
+          <p className="title h4 slide-in-elliptic-right-fwd">
+            {" "}
+            SA7 HD IMAGE SEARCH
+          </p>{" "}
+          <form onSubmit={sendRequest} className="text-center d-flex mt-5 ">
+            <input
+              type="text"
+              onChange={changeHandler}
+              className="form-control input"
+              placeholder=" Search here..."
+            />
+            <input
+              type="submit"
+              value="Search"
+              className="btn btn-primary ml-1 input"
+            />
+          </form>
         </div>
       ) : isLoading ? (
         <div>
@@ -227,9 +226,9 @@ function App() {
           </div>
         </div>
       )}
-      <footer className="mt-2">
+      <footer>
         {" "}
-        &copy; 2019 Designed and Programmed by Saood using React
+        &copy; 2019 Designed and Programmed <br></br> by Saood using React
       </footer>
     </div>
   );
