@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Pagination } from "semantic-ui-react";
+import { Pagination, Input } from "semantic-ui-react";
 
 import "./App.css";
 
@@ -86,15 +86,14 @@ function App() {
       {pictures.length < 1 ? (
         <div className="cover d-flex justify-content-center align-items-center flex-column">
           <p className="title h4 slide-in-elliptic-right-fwd">
-            {" "}
-            SA7 HD IMAGE SEARCH
-          </p>{" "}
+            SA7 HD-IMAGE SEARCH
+          </p>
+
           <form onSubmit={sendRequest} className="text-center d-flex mt-5 ">
-            <input
-              type="text"
+            <Input
+              icon="search"
               onChange={changeHandler}
-              className="form-control input"
-              placeholder=" Search here..."
+              placeholder="Search..."
             />
             <input
               type="submit"
@@ -106,7 +105,7 @@ function App() {
       ) : isLoading ? (
         <div>
           <div className="cover d-flex justify-content-center align-items-center">
-            <p className="title h4">Searching...</p>
+            <p className="title">Searching...</p>
           </div>
           <form
             onSubmit={sendRequest}

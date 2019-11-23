@@ -86,6 +86,9 @@ footer {
   padding: 10px;
   border-radius: 10px;
   box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  color: rgb(70, 69, 75);
+  font-size: 1.2rem;
+  border: 1px solid white;
 }
 .page {
   box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
