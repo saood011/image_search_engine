@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Pagination, Input } from "semantic-ui-react";
-
+import spinner from "./spinner.gif";
 import "./App.css";
 
 function App() {
@@ -105,7 +105,7 @@ function App() {
       ) : isLoading ? (
         <div>
           <div className="cover d-flex justify-content-center align-items-center">
-            <p className="title">Searching...</p>
+            <img src={spinner} alt="spinner" />
           </div>
           <form
             onSubmit={sendRequest}
@@ -129,23 +129,22 @@ function App() {
         </div>
       ) : (
         <div>
-          <p className="title h5 text-dark text-center">
+          <p className="title h5 text-dark text-center bg-warning">
             Showing result for "{term}"
           </p>
           <form
             onSubmit={sendRequest}
-            className="text-center d-flex mt-2 shadow"
+            className="text-center d-flex justify-content-center"
           >
-            <input
-              type="text"
+            <Input
+              icon="search"
               onChange={changeHandler}
-              className="form-control"
-              placeholder=" Search here..."
+              placeholder="Search..."
             />
             <input
               type="submit"
               value="Search"
-              className="btn btn-primary ml-1"
+              className="btn btn-primary ml-1 input"
             />
           </form>
           <div className="d-flex flex-wrap justify-content-center mt-2 mb-2 list align-items-center">
