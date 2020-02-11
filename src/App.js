@@ -20,7 +20,6 @@ function App() {
 
   const changeHandler = e => {
     setTerm(e.target.value);
-    console.log(term);
   };
 
   //// sending request on search buton click
@@ -29,7 +28,7 @@ function App() {
     e.preventDefault();
     setIsLoading(true);
     setPageNum(1);
-
+    console.log(term);
     axios
       .get("https://api.unsplash.com/search/photos", {
         params: {
@@ -57,6 +56,7 @@ function App() {
   const changePage = (e, paginate) => {
     setIsLoading(true);
     setPageNum(paginate);
+    console.log(paginate);
     axios
       .get("https://api.unsplash.com/search/photos", {
         params: {
@@ -84,10 +84,8 @@ function App() {
   return (
     <div className="fluid-container">
       {pictures.length < 1 ? (
-        <div className="cover d-flex justify-content-center align-items-center flex-column">
-          <p className="title h4 slide-in-elliptic-right-fwd">
-            SA7 HD-IMAGE SEARCH
-          </p>
+        <div className="cover d-flex justify-content-center align-items-center flex-column slide-in-bck-center ">
+          <p className="title h4 tracking-in-contract ">SA7 HD-IMAGE SEARCH</p>
 
           <form onSubmit={sendRequest} className="text-center d-flex mt-5 ">
             <Input
@@ -104,25 +102,10 @@ function App() {
         </div>
       ) : isLoading ? (
         <div>
-          <div className="cover d-flex justify-content-center align-items-center">
+          <div className=" d-flex justify-content-center align-items-center min-height">
             <img src={spinner} alt="spinner" />
           </div>
-          <form
-            onSubmit={sendRequest}
-            className="text-center d-flex mt-2 shadow"
-          >
-            <input
-              type="text"
-              onChange={changeHandler}
-              className="form-control"
-              placeholder=" Search here..."
-            />
-            <input
-              type="submit"
-              value="Search"
-              className="btn btn-primary ml-1"
-            />
-          </form>
+
           <div className="text-center">
             <div className="lds-hourglass"></div>
           </div>
@@ -174,6 +157,7 @@ function App() {
               onPageChange={(e, pageInfo) => {
                 setPageNum(pageInfo.activePage);
                 changePage(e, Number(pageInfo.activePage));
+                console.log("pagination clicked");
               }}
               totalPages={TotalPages}
             />
